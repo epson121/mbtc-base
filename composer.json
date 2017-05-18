@@ -13,5 +13,9 @@
         "psr-4": {
             "Mbtc\\Base\\": ""
         }
+    },
+    "require": {
+        "bitwasp/bitcoin-lib": "1.0.*",
+        "endroid/qrcode": "^1.9"
     }
 }
