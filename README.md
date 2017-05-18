@@ -7,4 +7,6 @@ todo
  * connect to core node for information
  
  
+ requires php-gmt extension
+ 
  wip

@@ -19,6 +19,8 @@ use Mbtc\Base\Model\Method\BitcoinProvider;
 class Bitcoin implements BitcoinPaymentInterface
 {
 
+    const PAYMENT_METHOD_BITCOIN= 'bitcoin';
+
     /**
      * @var string
      */

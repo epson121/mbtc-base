@@ -9,22 +9,24 @@
  * @var \Mbtc\Base\Block\Checkout\Onepage\Success\Info $block
  */
 ?>
-<div>
-    <div><strong><?php echo $block->escapeHtml(__('Payment information: ')); ?></strong></div>
+<?php if ($block->isBitcoinOrder()): ?>
     <div>
+        <div><strong><?php echo $block->escapeHtml(__('Payment information: ')); ?></strong></div>
         <div>
-            <?php echo $block->escapeHtml(__('Amount in BTC:  ')); ?><?php echo $block->escapeHtml(__($block->getAmount())); ?>
-        </div>
-        <div><?php echo $block->escapeHtml(__('This is a bitcoin address for payment. Send your funds here.')); ?></div>
-        <div><?php echo $block->getAddress() ?></div>
-        <div id="address-qr">
-            <img src="<?php echo $block->getTransactionQrCode(); ?>">
-        </div>
+            <div>
+                <?php echo $block->escapeHtml(__('Amount in BTC:  ')); ?><?php echo $block->escapeHtml(__($block->getAmount())); ?>
+            </div>
+            <div><?php echo $block->escapeHtml(__('This is a bitcoin address for payment. Send your funds here.')); ?></div>
+            <div><?php echo $block->getAddress() ?></div>
+            <div id="address-qr">
+                <img src="<?php echo $block->getTransactionQrCode(); ?>">
+            </div>
 
-        <?php $confirmations = $block->getConfirmations(); ?>
-        <?php if ($confirmations): ?>
-            <div><?php echo $block->escapeHtml(__('We wait %1 confirmation(s) before invoicing.', $confirmations)); ?></div>
-        <?php endif; ?>
-        <div><?php echo $block->escapeHtml(__('You will receive a copy of this data vie email.')); ?></div>
+            <?php $confirmations = $block->getConfirmations(); ?>
+            <?php if ($confirmations): ?>
+                <div><?php echo $block->escapeHtml(__('We wait %1 confirmation(s) before invoicing.', $confirmations)); ?></div>
+            <?php endif; ?>
+            <div><?php echo $block->escapeHtml(__('You will receive a copy of this data vie email.')); ?></div>
+        </div>
     </div>
-</div>
+<?php endif; ?>

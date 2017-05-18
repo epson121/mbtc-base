@@ -9,7 +9,12 @@
     <default>
         <payment>
             <bitcoin>
+                <active>0</active>
                 <model>Mbtc\Base\Model\BitcoinPaymentInterface</model>
+                <order_status>pending</order_status>
+                <title>Bitcoin</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
             </bitcoin>
         </payment>
     </default>

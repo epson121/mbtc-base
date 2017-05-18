@@ -48,6 +48,10 @@ class Info extends Template
         parent::__construct($context, $data);
     }
 
+    public function isBitcoinOrder() {
+        return $this->getOrder()->getPayment()->getMethod() == \Mbtc\Base\Model\Method\Bitcoin::PAYMENT_METHOD_BITCOIN;
+    }
+
     public function getAddress() {
         $paymentAdditionalInfo = $this->getPaymentAdditionalInfo();
         $address = null;

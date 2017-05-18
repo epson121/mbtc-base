@@ -28,7 +28,7 @@ class Data extends AbstractHelper
     const XML_PAYMENT_BITCOIN_EXPLORERS = 'payment/bitcoin/explorers';
     const XML_PAYMENT_BITCOIN_LATEST_BLOCK_HEIGHT = 'payment/bitcoin/latest_block_height';
 
-    const CONVERSION_RATE = 980;
+    const CONVERSION_RATE = 1000;
     const SAVE_QR_IMAGES_PATH = 'qr/';
     const PRECISION = 8;
 
@@ -120,7 +120,8 @@ class Data extends AbstractHelper
      */
     public function getRates()
     {
-        return unserialize($this->scopeConfig->getValue(self::XML_PAYMENT_BITCOIN_RATES));
+        $rates = unserialize($this->scopeConfig->getValue(self::XML_PAYMENT_BITCOIN_RATES));
+        return $rates ?: [];
     }
 
 
@@ -145,7 +146,7 @@ class Data extends AbstractHelper
             }
         }
 
-        return $result;
+        return $result ?: (1/self::CONVERSION_RATE);
     }
 
     /**
