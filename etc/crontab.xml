@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="mbtc">
+        <job name="update_exchange_rate" instance="Mbtc\Base\Cron\UpdateExchangeRate" method="execute">
+            <schedule>*/1 * * * *</schedule>
+        </job>
+        <job name="check_confirmations" instance="Mbtc\Base\Cron\CheckConfirmations" method="execute">
+            <schedule>*/3 * * * *</schedule>
+        </job>
+        <job name="fetch_latest_block" instance="Mbtc\Base\Cron\FetchLatestBlock" method="execute">
+            <schedule>*/3 * * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,14 @@
+<?php
+
+// @codingStandardsIgnoreFile
+/**
+ * @var $block \Mbtc\Base\Block\Info
+ */
+?>
+<?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?>
+<div>
+    <div><?php echo $block->getAddress() ?></div>
+    <div id="address-qr">
+        <img src="<?php echo $block->getTransactionQrCode(); ?>">
+    </div>
+</div>

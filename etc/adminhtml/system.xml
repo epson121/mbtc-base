@@ -1,0 +1,71 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Config/etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="bitcoin" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Bitcoin</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/bitcoin/active</config_path>
+                </field>
+                <field id="testnet" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" >
+                    <label>Test mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/bitcoin/testnet</config_path>
+                    <tooltip>Testnet uses blockr.io API by default</tooltip>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <config_path>payment/bitcoin/title</config_path>
+                </field>
+                <field id="extended_pubkey" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extended public key (bip 32)</label>
+                    <config_path>payment/bitcoin/extended_pubkey</config_path>
+                </field>
+                <field id="extended_test_pubkey" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extended public key (bip 32) - testnet</label>
+                    <config_path>payment/bitcoin/extended_test_pubkey</config_path>
+                    <depends>
+                        <field id="testnet">1</field>
+                    </depends>
+                </field>
+                <field id="derivation_path" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Derivation path</label>
+                    <config_path>payment/bitcoin/derivation_path</config_path>
+                </field>
+                <field id="auto_invoice" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Automatic invoicing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>payment/bitcoin/auto_invoice</config_path>
+                    <tooltip>Make sure cron is running</tooltip>
+                </field>
+                <field id="num_confirmations" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of confirmations to wait</label>
+                    <config_path>payment/bitcoin/num_confirmations</config_path>
+                    <depends>
+                        <field id="auto_invoice">1</field>
+                    </depends>
+                </field>
+                <field id="transaction_label" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Transaction label (for QR code)</label>
+                    <config_path>payment/bitcoin/transaction_label</config_path>
+                </field>
+
+                <field id="rate_provider" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" >
+                    <label>Rate provider</label>
+                    <source_model>Mbtc\Base\Model\Config\Source\RateProvider</source_model>
+                    <config_path>payment/bitcoin/rate_provider</config_path>
+                </field>
+                <field id="explorers" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" >
+                    <label>Blockchain explorer</label>
+                    <source_model>Mbtc\Base\Model\Config\Source\BlockchainExplorers</source_model>
+                    <config_path>payment/bitcoin/explorers</config_path>
+                </field>
+                <field id="instructions" translate="lavel" type="textarea" sortOrder="90" showInDefault="1" showInWebsite="1">
+                    <label>Frontend instructions</label>
+                    <config_path>payment/bitcoin/instructions</config_path>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

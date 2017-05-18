@@ -1,0 +1,8 @@
+{
+    "name": "mbtc/base",
+    "description": "Magento 2 Bitcoin payment method",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ]
+}

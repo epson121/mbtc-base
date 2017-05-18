@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @var $block \Mbtc\Base\Block\Info
+ */
+?>
+<?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?>
+<div>
+    <div>
+        <strong><?php echo __('Address'); ?></strong>
+        <span class="price"><?php echo $block->getAddress(); ?></span>
+    </div>
+    <div>
+        <strong><?php echo __('Confirmations'); ?></strong>
+        <span class="price"><?php echo $block->getConfirmations(); ?></span>
+    </div>
+
+    <div id="address-qr">
+        <img src="<?php echo $block->getTransactionQrCode(); ?>">
+    </div>
+</div>

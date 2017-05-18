@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- create fiscal entities on invoice|creditmemo save -->
+    <event name="sales_order_save_after">
+        <observer name="append_bitcoin_data_to_payment" instance="Mbtc\Base\Observer\AppendBitcoinDataToPayment" />
+    </event>
+    <!--<event name="sales_order_invoice_register">-->
+        <!--<observer name="update_transactions" instance="Mbtc\Base\Observer\UpdateTransactions" />-->
+    <!--</event>-->
+
+</config>
