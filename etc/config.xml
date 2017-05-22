@@ -14,7 +14,11 @@
                 <order_status>pending</order_status>
                 <title>Bitcoin</title>
                 <allowspecific>0</allowspecific>
+                <derivation_path>m/1/</derivation_path>
                 <group>offline</group>
+                <auto_invoice>0</auto_invoice>
+                <num_confirmations>6</num_confirmations>
+                <instructions>Payment address will be generated after the order is placed.</instructions>
             </bitcoin>
         </payment>
     </default>

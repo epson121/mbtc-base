@@ -15,9 +15,6 @@ define(
     ) {
         'use strict';
 
-        //var config = window.checkoutConfig.payment;
-        //console.log(config);
-        //console.log("TEST");
         rendererList.push(
             {
                 type: 'bitcoin',

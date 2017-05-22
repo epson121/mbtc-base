@@ -13,7 +13,6 @@ define(
 
             defaults: {
                 template: 'Mbtc_Base/payment/bitcoin'
-                //isPlaceOrderActionAllowed : ko.observable(false)
             },
 
             getInstructions: function () {
@@ -21,24 +20,6 @@ define(
                 return instructions ? instructions : "";
             }
 
-            /**
-             * Initialize view.
-             *
-             * @return {exports}
-             */
-            //initialize: function () {
-
-            //}
-
-            /** Returns send check to info */
-            //getMailingAddress: function() {
-            //    return window.checkoutConfig.payment.checkmo.mailingAddress;
-            //},
-
-            /** Returns payable to info */
-            //getPayableTo: function() {
-            //    return window.checkoutConfig.payment.checkmo.payableTo;
-            //}
         });
 
     }

@@ -424,9 +424,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function validate()
     {
-        // todo
-        // \Magento\Backend\Model\Session\Quote
-        // $this->getSession()->getOrder()->getId()
         return $this;
     }
 
@@ -440,7 +437,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function order(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        // todo
         return $this;
     }
 
@@ -454,7 +450,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function authorize(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        // todo
         return $this;
     }
 
@@ -468,7 +463,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        // todo
         return $this;
     }
 
@@ -482,7 +476,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function refund(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
-        // todo
         return $this;
     }
 
@@ -495,7 +488,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function cancel(\Magento\Payment\Model\InfoInterface $payment)
     {
-        // todo
         return $this;
     }
 
@@ -508,7 +500,6 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function void(\Magento\Payment\Model\InfoInterface $payment)
     {
-        // todo
         return $this;
     }
 
@@ -519,12 +510,11 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function canReviewPayment()
     {
-        // todo
-        return true;
+        return false;
     }
 
     /**
-     * Attempt to accept a payment that us under review
+     * Attempt to accept a payment that is under review
      *
      * @param InfoInterface $payment
      * @return false
@@ -533,11 +523,11 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function acceptPayment(InfoInterface $payment)
     {
-        return false;
+        return true;
     }
 
     /**
-     * Attempt to deny a payment that us under review
+     * Attempt to deny a payment that is under review
      *
      * @param InfoInterface $payment
      * @return false
@@ -614,7 +604,7 @@ class Bitcoin implements BitcoinPaymentInterface
      */
     public function isActive($storeId = null)
     {
-        return true;
+        return $this->config->isActive();
     }
 
     /**
