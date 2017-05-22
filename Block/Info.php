@@ -21,6 +21,8 @@ class Info extends \Magento\Payment\Block\Info
 
     private $helper;
 
+    public $paymentAdditionalInfo;
+
     /**
      * Constructor
      *
@@ -47,21 +49,11 @@ class Info extends \Magento\Payment\Block\Info
         return $this->getInfo()->getOrder();
     }
 
-    public function getAddress() {
-        $paymentAdditionalInfo = $this->getPaymentAdditionalInfo();
-        if (isset($paymentAdditionalInfo['bitcoin_address'])) {
-            return $paymentAdditionalInfo['bitcoin_address'];
-        }
 
-        return null;
-    }
-
-
-    public function getTransactionQrCode()
+    public function getTransactionQrCode($qrPath)
     {
-        $paymentAdditionalInfo = $this->getPaymentAdditionalInfo();
-        if (isset($paymentAdditionalInfo['bitcoin_qr_path'])) {
-            $path = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $paymentAdditionalInfo['bitcoin_qr_path'];
+        if ($qrPath) {
+            $path = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) . $qrPath;
             return $path;
         }
         return null;
@@ -69,16 +61,25 @@ class Info extends \Magento\Payment\Block\Info
 
     public function getPaymentAdditionalInfo()
     {
-        return $this->getOrder()->getPayment()->getAdditionalInformation();
+
+        $info = $this->getOrder()->getPayment()->getAdditionalInformation();
+
+        return [
+            'confirmations'             => $this->getConfirmations(isset($info['bitcoin_block_confirmed']) ? $info['bitcoin_block_confirmed'] : null),
+            'bitcoin_address'           => isset($info['bitcoin_address']) ? $info['bitcoin_address'] : null,
+            'transaction_qr_code'       => $this->getTransactionQrCode(isset($info['bitcoin_qr_path']) ? $info['bitcoin_qr_path'] : null),
+            'bitcoin_amount'            => isset($info['bitcoin_amount']) ? $info['bitcoin_amount'] : null
+        ];
+
     }
 
-    public function getConfirmations()
+
+    public function getConfirmations($blockConfirmed)
     {
-        $paymentAdditionalInfo = $this->getPaymentAdditionalInfo();
         $latestBlockHeight = (int)$this->helper->getLatestBlockHeight();
 
-        if (isset($paymentAdditionalInfo['bitcoin_block_confirmed'])) {
-            return $latestBlockHeight - $paymentAdditionalInfo['bitcoin_block_confirmed'] + 1;
+        if ($blockConfirmed) {
+            return $latestBlockHeight - $blockConfirmed + 1;
         }
 
         return 0;

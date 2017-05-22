@@ -5,10 +5,18 @@
  * @var $block \Mbtc\Base\Block\Info
  */
 ?>
+<?php $info = $block->getPaymentAdditionalInfo(); ?>
 <?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?>
 <div>
-    <div><?php echo $block->getAddress() ?></div>
+    <div>
+        <strong><?php echo __('Address'); ?></strong>
+        <span class="price"><?php echo $info['bitcoin_address']; ?></span>
+    </div>
+    <div>
+        <strong><?php echo __('Amount'); ?></strong>
+        <span class="price"><?php echo $info['bitcoin_amount']; ?></span>
+    </div>
     <div id="address-qr">
-        <img src="<?php echo $block->getTransactionQrCode(); ?>">
+        <img src="<?php echo $info['transaction_qr_code']; ?>">
     </div>
 </div>

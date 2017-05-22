@@ -23,4 +23,9 @@ class Form extends \Magento\Payment\Block\Form
      */
     protected $_template = 'Mbtc_Base::form/bitcoin.phtml';
 
+    public function getMethodCode()
+    {
+        return $this->getMethod()->getCode();
+    }
+
 }

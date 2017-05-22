@@ -5,23 +5,20 @@ namespace Mbtc\Base\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Mbtc\Base\Helper\Data;
 use Mbtc\Base\Model\TransactionFactory;
-use Mbtc\Base\Model\Ui\ConfigProvider;
 
 class UpdateTransactions implements ObserverInterface {
 
     /**
-     * @var \Mbtc\Base\Helper\Data
+     * @var Data
      */
     private $helper;
 
-    /**
-     * @var ConfirmationsFactory
-     */
     private $transactionFactory;
 
     public function __construct(
-        \Mbtc\Base\Helper\Data $helper,
+        Data $helper,
         TransactionFactory $transactionFactory
     ) {
         $this->transactionFactory = $transactionFactory;
@@ -34,71 +31,10 @@ class UpdateTransactions implements ObserverInterface {
      */
     public function execute(Observer $observer)
     {
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $observer->getEvent()->getDataObject();
-
-        $paymentMethod = $order->getPayment()->getMethod();
-
-        $payment = $order->getPayment();
-        $additionalInformation = $payment->getAdditionalInformation();
-
-        if ($paymentMethod === ConfigProvider::CODE && !isset($additionalInformation['bitcoin_address'])) {
-            $additionalInformation = $this->appendAdditionalInformation($order, $additionalInformation);
-
-            $this->saveTransactionData($order, $additionalInformation);
-
-            $payment->setAdditionalInformation($additionalInformation);
-        }
-
+        $transactionFactory = $this->transactionFactory->create();
+        $orderId = $observer->getOrder()->getEntityId();
+        $transaction = $transactionFactory->load($orderId, 'order_id');
+        return $transaction->setStatus(\Mbtc\Base\Model\Transaction::STATUS_COMPLETE)->save();
     }
-
-    /**
-     * @param $order
-     * @param $additionalInformation
-     * @return mixed
-     */
-    public function appendAdditionalInformation($order, $additionalInformation)
-    {
-        $incrementId = (int)$order->getIncrementId();
-
-        $path = $this->helper->derivePath($incrementId);
-        $address = $this->helper->generateAddress($path);
-        $baseCurrencyCode = $order->getStore()->getBaseCurrencyCode();
-
-        $amount = $this->helper->convertRate(
-            $baseCurrencyCode,
-            $order->getBaseTotalDue()
-        );
-
-        $rateInfo = $this->helper->getRateInfo($baseCurrencyCode);
-
-        $img = $this->helper->generateQrCode(
-            $address,
-            $amount,
-            $this->helper->generateTransactionMessage($incrementId)
-        );
-
-        $additionalInformation['bitcoin_address'] = $address;
-        $additionalInformation['bitcoin_derived_path'] = $path;
-        $additionalInformation['bitcoin_qr_path'] = $img;
-        $additionalInformation['bitcoin_amount'] = $amount;
-        $additionalInformation['base_rate_info'] = $rateInfo;
-
-        return $additionalInformation;
-    }
-
-    /**
-     * @param \Magento\Sales\Model\Order $order
-     * @param $additionalInformation
-     */
-    public function saveTransactionData($order, $additionalInformation)
-    {
-        /** @var \Mbtc\Base\Model\Transaction $transaction */
-        $transaction = $this->transactionFactory->create();
-        $transaction->setIncrementId($order->getIncrementId());
-        $transaction->setAddress($additionalInformation['bitcoin_address']);
-        $transaction->save();
-    }
-
 
 }

@@ -5,8 +5,9 @@
     <event name="sales_order_save_after">
         <observer name="append_bitcoin_data_to_payment" instance="Mbtc\Base\Observer\AppendBitcoinDataToPayment" />
     </event>
-    <!--<event name="sales_order_invoice_register">-->
+    <event name="sales_order_invoice_register">
         <!--<observer name="update_transactions" instance="Mbtc\Base\Observer\UpdateTransactions" />-->
-    <!--</event>-->
+        <observer name="update_transactions" instance="Mbtc\Base\Observer\UpdateTransactions" />
+    </event>
 
 </config>

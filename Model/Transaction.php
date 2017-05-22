@@ -13,7 +13,7 @@ class Transaction extends AbstractModel
 
     const STATUS_PENDING = '0';
     const STATUS_PROCESSING = '1';
-    const STATUS_SUCCESS = '2';
+    const STATUS_COMPLETE = '2';
     const STATUS_CANCELED = '3';
 
     /**

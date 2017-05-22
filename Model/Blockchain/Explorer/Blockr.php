@@ -38,9 +38,8 @@ class Blockr extends ExplorerAbstract
      * @internal param $order
      * @internal param Transaction $transaction
      */
-    public function checkConfirmations($txId, $address, $amount)
+    public function checkConfirmations($txId, $address, $amount, $payment)
     {
-        $result = false;
         $txInfo = null;
 
         if ($txId) {
@@ -53,14 +52,14 @@ class Blockr extends ExplorerAbstract
         }
 
         if ($txInfo) {
-            $result = true;
             $blockNumber = isset($txInfo['block']) ? $txInfo['block'] : $txInfo['block_nb'];
             $this->setConfirmations($txInfo['confirmations']);
             $this->setBlockConfirmed($blockNumber);
             $this->setTxId($txInfo['tx']);
+            $this->setIsConfirmed(true);
         }
 
-        return $result;
+        return $this->getIsConfirmed();
     }
 
     public function fetchData($url)

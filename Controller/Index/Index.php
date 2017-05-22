@@ -5,10 +5,12 @@ namespace Mbtc\Base\Controller\Index;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use BitWasp\BitcoinLib\BIP32;
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Mbtc\Base\Cron\CheckConfirmations;
 use Mbtc\Base\Cron\FetchLatestBlock;
 use Mbtc\Base\Cron\UpdateExchangeRate;
 use Mbtc\Base\Helper\Data;
+use Magento\Framework\Filesystem;
 
 class Index extends Action
 {
@@ -20,18 +22,19 @@ class Index extends Action
         Data $helper,
         UpdateExchangeRate $exchangeRate,
         CheckConfirmations $checkConfirmations,
-        FetchLatestBlock $fetchLatestBlock
+        FetchLatestBlock $fetchLatestBlock,
+        Filesystem $fs
     ) {
         $this->helper = $helper;
         $this->exchangeRateCron = $exchangeRate;
         $this->checkConfirmations = $checkConfirmations;
         $this->fetchLatestBlock = $fetchLatestBlock;
+        $this->fs = $fs;
         parent::__construct($context);
     }
 
     public function execute()
     {
-
 //        $this->exchangeRateCron->execute();
 //        $this->fetchLatestBlock->execute();
             $this->checkConfirmations->execute();

@@ -61,17 +61,16 @@
                     <label>Number of confirmations to wait</label>
                     <config_path>payment/bitcoin/num_confirmations</config_path>
                     <depends>
-                        <field id="auto_invoice">1</field>
                         <field id="active">1</field>
                     </depends>
                 </field>
-                <field id="transaction_label" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Transaction label (for QR code)</label>
-                    <config_path>payment/bitcoin/transaction_label</config_path>
-                    <depends>
-                        <field id="active">1</field>
-                    </depends>
-                </field>
+                <!--<field id="transaction_label" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Transaction label (for QR code)</label>-->
+                    <!--<config_path>payment/bitcoin/transaction_label</config_path>-->
+                    <!--<depends>-->
+                        <!--<field id="active">1</field>-->
+                    <!--</depends>-->
+                <!--</field>-->
 
                 <field id="rate_provider" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" >
                     <label>Rate provider</label>

@@ -106,17 +106,22 @@ class CheckConfirmations {
 
             $waitConfirmations = $this->helper->getNumConfirmations();
 
-            $valid = $service->checkConfirmations($transaction->getTxId(), $address, $amount);
+            $isValid = $service->checkConfirmations($transaction->getTxId(), $address, $amount);
 
-
-            if ($valid) {
-
+            if ($service->getIsConfirmed()) {
                 $payment->setAdditionalInformation('bitcoin_confirmations', $service->getConfirmations());
                 $payment->setAdditionalInformation('bitcoin_block_confirmed', $service->getBlockConfirmed());
 
+                $transactionSave->addObject(
+                    $payment
+                );
+            }
+
+            if ($isValid) {
+
                 if ($service->getConfirmations() >= $waitConfirmations) {
 
-                    $transaction->setStatus(Transaction::STATUS_SUCCESS);
+                    $transaction->setStatus(Transaction::STATUS_COMPLETE);
 
                     if ($this->helper->isAutoInvoiceEnabled()) {
                         /** @var Invoice $invoice */
@@ -153,14 +158,11 @@ class CheckConfirmations {
                 }
 
                 $transactionSave->addObject(
-                    $payment
-                )->addObject(
                     $transaction
                 );
-
-                $transactionSave->save();
-
             }
+
+            $transactionSave->save();
         }
 
     }

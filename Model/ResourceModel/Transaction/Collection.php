@@ -27,4 +27,11 @@ class Collection extends AbstractCollection {
         return $this;
     }
 
+    public function getTransactionByOrderId($orderId) {
+        $this->addFieldToSelect('*')
+                ->addFieldToFilter('order_id', $orderId)->lo;
+
+        return $this;
+    }
+
 }

@@ -29,7 +29,7 @@ class Data extends AbstractHelper
     const XML_PAYMENT_BITCOIN_LATEST_BLOCK_HEIGHT = 'payment/bitcoin/latest_block_height';
 
     const CONVERSION_RATE = 1000;
-    const SAVE_QR_IMAGES_PATH = 'qr/';
+    const SAVE_QR_IMAGES_PATH = 'qr';
     const PRECISION = 8;
 
     ### testnet
@@ -110,10 +110,10 @@ class Data extends AbstractHelper
      * @param null $scopeCode
      * @return mixed
      */
-    public function getTransactionLabel($scope = ScopeInterface::SCOPE_WEBSITE, $scopeCode = null)
-    {
-        return $this->scopeConfig->getValue(self::XML_PAYMENT_BITCOIN_TRANSACTION_LABEL, $scope, $scopeCode);
-    }
+//    public function getTransactionLabel($scope = ScopeInterface::SCOPE_WEBSITE, $scopeCode = null)
+//    {
+//        return $this->scopeConfig->getValue(self::XML_PAYMENT_BITCOIN_TRANSACTION_LABEL, $scope, $scopeCode);
+//    }
 
     /**
      * @return mixed
@@ -207,7 +207,13 @@ class Data extends AbstractHelper
             ->setLabelFontSize(8)
             ->setImageType(QrCode::IMAGE_TYPE_PNG);
 
-        $imageFilename = self::SAVE_QR_IMAGES_PATH . hash('sha256', sprintf('qr_%s.png', $address . rand()));
+        $imageFilename = self::SAVE_QR_IMAGES_PATH . DIRECTORY_SEPARATOR . hash('sha256', sprintf('qr_%s.png', $address . rand()));
+
+
+        if (!$this->mediaDir->isExist(self::SAVE_QR_IMAGES_PATH)) {
+            $this->mediaDir->create(self::SAVE_QR_IMAGES_PATH);
+        }
+
         $path = $this->mediaDir->getAbsolutePath($imageFilename);
         $qrCode->save($path);
 
@@ -221,9 +227,9 @@ class Data extends AbstractHelper
             'message'   => $message
         ];
 
-        if ($label = $this->getTransactionLabel()) {
-            $params['label'] = $label;
-        }
+//        if ($label = $this->getTransactionLabel()) {
+//            $params['label'] = $label;
+//        }
 
         $uri = "bitcoin:{$address}?" . http_build_query($params);
 

@@ -17,6 +17,8 @@ abstract class ExplorerAbstract {
 
     public $txId;
 
+    public $isConfirmed;
+
 
     public function checkConfirmations($txId, $address, $amount)
     {
@@ -91,6 +93,16 @@ abstract class ExplorerAbstract {
     public function setTxId($txId)
     {
         $this->txId = $txId;
+    }
+
+    public function setIsConfirmed($isConfirmed)
+    {
+        $this->isConfirmed = $isConfirmed;
+    }
+
+    public function getIsConfirmed()
+    {
+        return $this->isConfirmed;
     }
 
 }
